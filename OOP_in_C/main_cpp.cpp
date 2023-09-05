@@ -9,7 +9,7 @@ int main()
     auto tab_shape = new Shape_cpp*[_SIZE_]; // Not (so) equivalent to Shape_cpp **tab_shape  = (Shape_cpp **) malloc(_SIZE_ * sizeof(Shape_cpp*))
    
     tab_shape[0] = new Rectangle(5, 10);
-    tab_shape[1] = new Triangle(5, 10, 15);
+    tab_shape[1] = new Triangle(5, 12, 15);
     tab_shape[2] = new Circle(20);
 
     for (int i = 0; i < _SIZE_; ++i)
