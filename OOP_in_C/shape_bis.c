@@ -5,25 +5,25 @@
 #include "bad_assert.h"
 #include "shape_bis.h"
 
-float get_surface_rectangle_bis(const Shape_bis *shape_bis)
+float get_aera_rectangle_bis(const Shape_bis *shape_bis)
 {
     const Shape *shape = (const Shape *)shape_bis;
     check_pointer_Shape(shape);
-    return get_surface_rectangle_base(shape);
+    return get_aera_rectangle_base(shape);
 }
 
-float get_surface_triangle_bis(const Shape_bis *shape_bis)
+float get_aera_triangle_bis(const Shape_bis *shape_bis)
 {
     const Shape *shape = (const Shape *)shape_bis;
     check_pointer_Shape(shape);
-    return get_surface_triangle_base(shape);
+    return get_aera_triangle_base(shape);
 }
 
-float get_surface_circle_bis(const Shape_bis *shape_bis)
+float get_aera_circle_bis(const Shape_bis *shape_bis)
 {
     const Shape *shape = (const Shape *)shape_bis;
     check_pointer_Shape(shape);
-    return get_surface_circle_base(shape);
+    return get_aera_circle_base(shape);
 }
 
 void print_data_rectangle_bis(const Shape_bis *shape_bis)
@@ -53,30 +53,30 @@ static Shape_bis *allocate_Shape()
     return shape;
 }
 
-Shape_bis *create_rectangle_bis(float lenght_side1, float lenght_side2)
+Shape_bis *create_rectangle_bis(float length, float width)
 {
     Shape_bis *shape = allocate_Shape();
     Rectangle_data *data = (Rectangle_data *)malloc(sizeof(Rectangle_data));
     _ASSERT_(data);
-    data->lenght_side1 = lenght_side1;
-    data->lenght_side2 = lenght_side2;
+    data->length = length;
+    data->width = width;
     shape->shape_data = (void *)data;
-    shape->get_surface = &get_surface_rectangle_bis;
+    shape->get_aera = &get_aera_rectangle_bis;
     shape->print_data = &print_data_rectangle_bis;
     return shape;
 }
 
-Shape_bis *create_triangle_bis(float lenght_side1, float lenght_side2,
-                               float lenght_side3)
+Shape_bis *create_triangle_bis(float length_side1, float length_side2,
+                               float length_side3)
 {
     Shape_bis *shape = allocate_Shape();
     Triangle_data *data = (Triangle_data *)malloc(sizeof(Triangle_data));
     _ASSERT_(data);
-    data->lenght_side1 = lenght_side1;
-    data->lenght_side2 = lenght_side2;
-    data->lenght_side3 = lenght_side3;
+    data->length_side1 = length_side1;
+    data->length_side2 = length_side2;
+    data->length_side3 = length_side3;
     shape->shape_data = (void *)data;
-    shape->get_surface = &get_surface_triangle_bis;
+    shape->get_aera = &get_aera_triangle_bis;
     shape->print_data = &print_data_triangle_bis;
     return shape;
 }
@@ -88,7 +88,7 @@ Shape_bis *create_circle_bis(float radius)
     _ASSERT_(data);
     data->radius = radius;
     shape->shape_data = (void *)data;
-    shape->get_surface = &get_surface_circle_bis;
+    shape->get_aera = &get_aera_circle_bis;
     shape->print_data = &print_data_circle_bis;
     return shape;
 }

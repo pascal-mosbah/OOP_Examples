@@ -1,0 +1,36 @@
+@startuml Test Diagram
+
+class Shape{
+    +get_aera():float
+    +print_data():void
+}
+
+class Rectangle{
+    -length :float
+    -width :float
+    +get_aera():float
+    +print_data():void
+
+
+}
+class Circle{
+    +get_aera():float
+    +print_data():void
+    -radius:float
+}
+class Square{
+    +get_aera():float
+    +print_data():void
+    -lenght:float
+}
+class Triangle{
+    +get_aera():float
+    +print_data():void
+    -side1 :float
+    -side2:float
+    -side3:float
+}
+
+Shape <|-- Rectangle 
+Shape <|-- Circle
+Shape <|-- Triangle
