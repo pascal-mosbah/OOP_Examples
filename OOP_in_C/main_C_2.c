@@ -2,7 +2,7 @@
 #include "bad_assert.h"
 #include "shape.h"
 #include "shape_bis.h"
-#include "shape_third.h"
+
 #define _SIZE_ 3
 
 int main()
@@ -27,7 +27,7 @@ int main()
     tab_shape_bis[0] = create_rectangle_bis(5, 10);
     tab_shape_bis[1] = create_triangle_bis(5, 10, 15);
     tab_shape_bis[2] = create_circle_bis(20);
-    tab_shape_bis[3] = create_square_bis(25);
+
     for (int i = 0; i < 4; ++i)
     {
         Shape_bis *shape = tab_shape_bis[i];
