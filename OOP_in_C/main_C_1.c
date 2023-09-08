@@ -10,7 +10,7 @@ int main()
     /* First version using additionnal functions acting on a Structure of type Shape */
     Shape **tab_shape = (Shape **)malloc(_SIZE_ * sizeof(Shape *));
     _ASSERT_(tab_shape);
-    
+
     tab_shape[0] = create_rectangle(5, 10);
     tab_shape[1] = create_triangle(5, 12, 15);
     tab_shape[2] = create_circle(20);
@@ -22,4 +22,11 @@ int main()
     }
 
     printf("\n*******************************************\n");
+
+    for (int i = 0; i < _SIZE_; ++i)
+    {
+        delete_shape(&(tab_shape[i]));
+    }
+    free(tab_shape);
+    return EXIT_SUCCESS;
 }

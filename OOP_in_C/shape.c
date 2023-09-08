@@ -47,6 +47,19 @@ Shape *create_circle(float radius)
    return shape;
 }
 
+void delete_shape(Shape **shape)
+{
+   if (*shape)
+   {
+      if ((*shape)->shape_data)
+      {
+         free((*shape)->shape_data);
+      }
+      free(*shape);
+      *shape = NULL;
+   }
+}
+
 void check_pointer_Shape(const Shape *shape)
 {
    _ASSERT_(shape);

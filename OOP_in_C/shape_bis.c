@@ -93,3 +93,15 @@ Shape_bis *create_circle_bis(float radius)
     return shape;
 }
 
+void delete_shape_bis(Shape_bis **shape)
+{
+   if (*shape)
+   {
+      if ((*shape)->shape_data)
+      {
+         free((*shape)->shape_data);
+      }
+      free(*shape);
+      *shape = NULL;
+   }
+}

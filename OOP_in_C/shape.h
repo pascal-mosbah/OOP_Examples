@@ -37,6 +37,8 @@ Shape *create_rectangle(float length_side1, float length_side2);
 Shape *create_triangle(float length_side1, float length_side2, float length_side3);
 Shape *create_circle(float radius);
 
+void delete_shape(Shape **shape);
+
 void check_pointer_Shape(const Shape *shape);
 
 float get_aera_rectangle_base(const Shape *shape);
