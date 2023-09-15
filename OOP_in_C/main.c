@@ -2,7 +2,7 @@
 #include "bad_assert.h"
 #include "shape.h"
 #include "shape_bis.h"
-#include "shape_third.h"
+
 #define _SIZE_ 3
 
 int main()

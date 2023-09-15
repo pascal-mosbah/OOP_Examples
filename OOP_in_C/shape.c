@@ -13,13 +13,13 @@ static Shape *allocate_shape(Shape_type shape_type)
    return shape;
 }
 
-Shape *create_rectangle(float length_side1, float length_side2)
+Shape *create_rectangle(float length, float width)
 {
    Shape *shape = allocate_shape(Rectangle);
    Rectangle_data *data = (Rectangle_data *)malloc(sizeof(Rectangle_data));
    _ASSERT_(data);
-   data->length = length_side1;
-   data->width = length_side2;
+   data->length = length;
+   data->width = width;
    shape->shape_data = (void *)data;
    return shape;
 }
@@ -46,6 +46,28 @@ Shape *create_circle(float radius)
    shape->shape_data = (void *)data;
    return shape;
 }
+
+Shape *create_Square_as_Shape(float length)
+{
+   Shape *shape = allocate_shape(Square_as_Shape);
+   Square_as_Shape_data *data = (Square_as_Shape_data *) malloc(sizeof(Square_as_Shape_data));
+   _ASSERT_(data);
+   data->length = length;
+   shape->shape_data = (void *)data;
+   return shape;
+}
+
+Shape *create_Square_as_Rectangle(float length)
+{
+   Shape *shape = allocate_shape(Square_as_Shape);
+  Rectangle_data *data = (Rectangle_data *)malloc(sizeof(Rectangle_data));
+   _ASSERT_(data);
+   data->length = length;
+   data->width = length;
+   shape->shape_data = (void *)data;
+   return shape;
+}
+
 
 void delete_shape(Shape **shape)
 {
@@ -89,6 +111,14 @@ float get_aera_circle_base(const Shape *shape)
    return (float)M_PI * radius * radius;
 }
 
+float get_aera_square_as_shape_base(const Shape *shape)
+{
+   Square_as_Shape_data *data = (Square_as_Shape_data *)shape->shape_data;
+   _ASSERT_(data);
+   float length = data->length;
+   return length * length;
+}
+
 void print_data_rectangle_base(const Shape *shape)
 {
    Rectangle_data *data = (Rectangle_data *)shape->shape_data;
@@ -108,6 +138,13 @@ void print_data_circle_base(const Shape *shape)
           data->radius);
 }
 
+
+void print_data_square_as_shape_base(const Shape *shape){
+   Square_as_Shape_data *data = (Square_as_Shape_data *)shape->shape_data;
+   printf("Shape type : Square as Shape with side lenght : %f\n",
+          data->length);
+}
+
 float get_aera(const Shape *shape)
 {
    check_pointer_Shape(shape);
@@ -125,6 +162,11 @@ float get_aera(const Shape *shape)
    {
       return get_aera_circle_base(shape);
    }
+      case Square_as_Shape:
+   {
+      return get_aera_square_as_shape_base(shape);
+   }
+
    default:
       _ASSERT_(0);
    }
@@ -149,6 +191,10 @@ void print_data(const Shape *shape)
    {
       print_data_circle_base(shape);
       break;
+   }
+        case Square_as_Shape:
+   {
+      print_data_square_as_shape_base(shape);
    }
    default:
       _ASSERT_(0);

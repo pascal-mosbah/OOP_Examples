@@ -3,7 +3,7 @@
 #include "shape.h"
 #include "shape_bis.h"
 
-#define _SIZE_ 3
+#define _SIZE_ 5
 
 int main()
 {
@@ -14,6 +14,8 @@ int main()
     tab_shape[0] = create_rectangle(5, 10);
     tab_shape[1] = create_triangle(5, 12, 15);
     tab_shape[2] = create_circle(20);
+    tab_shape[3] = create_Square_as_Shape(20);
+    tab_shape[4] = create_Square_as_Rectangle(20);
 
     for (int i = 0; i < _SIZE_; ++i)
     {

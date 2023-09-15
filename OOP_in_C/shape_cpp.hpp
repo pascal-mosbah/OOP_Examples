@@ -30,6 +30,21 @@ struct Circle : Shape_cpp
 {
     float radius_;
     float get_aera();
-    void print_data();
+    virtual void print_data();
     Circle(const float &radius);
+};
+
+struct Square_as_shape : Shape_cpp
+{
+    float lenght_;
+    float get_aera();
+    void print_data();
+    Square_as_shape(const float &lenght);
+};
+
+struct Square_as_rectangle : Rectangle
+{
+    float lenght_;
+    void print_data();
+    Square_as_rectangle(const float &lenght);
 };
