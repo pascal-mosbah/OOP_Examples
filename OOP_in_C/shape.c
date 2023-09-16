@@ -47,7 +47,7 @@ Shape *create_circle(float radius)
    return shape;
 }
 
-Shape *create_Square_as_Shape(float length)
+Shape *create_square_as_shape(float length)
 {
    Shape *shape = allocate_shape(Square_as_Shape);
    Square_as_Shape_data *data = (Square_as_Shape_data *) malloc(sizeof(Square_as_Shape_data));
@@ -57,15 +57,9 @@ Shape *create_Square_as_Shape(float length)
    return shape;
 }
 
-Shape *create_Square_as_Rectangle(float length)
+Shape *create_square_as_rectangle(float length)
 {
-   Shape *shape = allocate_shape(Square_as_Shape);
-  Rectangle_data *data = (Rectangle_data *)malloc(sizeof(Rectangle_data));
-   _ASSERT_(data);
-   data->length = length;
-   data->width = length;
-   shape->shape_data = (void *)data;
-   return shape;
+   return create_rectangle(length, length);
 }
 
 
@@ -141,7 +135,7 @@ void print_data_circle_base(const Shape *shape)
 
 void print_data_square_as_shape_base(const Shape *shape){
    Square_as_Shape_data *data = (Square_as_Shape_data *)shape->shape_data;
-   printf("Shape type : Square as Shape with side lenght : %f\n",
+   printf("Shape type : Square as Shape with side length : %f\n",
           data->length);
 }
 
@@ -195,6 +189,7 @@ void print_data(const Shape *shape)
         case Square_as_Shape:
    {
       print_data_square_as_shape_base(shape);
+      break;
    }
    default:
       _ASSERT_(0);

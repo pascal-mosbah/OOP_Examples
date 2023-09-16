@@ -51,28 +51,28 @@ void Circle::print_data()
           radius_);
 }
 
-Square_as_shape::Square_as_shape(const float &lenght){
-    lenght_ = lenght;
+Square_as_shape::Square_as_shape(const float &length){
+    length_ = length;
 }
 
 float Square_as_shape::get_aera()
 {
-    return (float)M_PI * lenght_ * lenght_;
+    return (float)M_PI * length_ * length_;
 }
 
 void Square_as_shape::print_data()
 {
-       printf("Shape type : Square as Shape with side lenght : %f\n",
-          lenght_);
+       printf("Shape type : Square as Shape with side length : %f\n",
+          length_);
 }
 
 void Square_as_rectangle::print_data()
 {
-       printf("Shape type : Square as Rectangle with side lenght : %f\n",
-          lenght_ /*or width_*/);
+       printf("Shape type : Square as Rectangle with side length : %f\n",
+          length_ /*or width_*/);
 }
 
 
-Square_as_rectangle::Square_as_rectangle(const float &lenght) : Rectangle(lenght, lenght){
+Square_as_rectangle::Square_as_rectangle(const float &length) : Rectangle(length, length){
 
 }

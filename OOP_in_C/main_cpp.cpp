@@ -38,7 +38,7 @@ int main()
     {
         delete tab_shape[i];
     }
-    delete tab_shape;
+    delete [] tab_shape;
    
     return EXIT_SUCCESS;
 }

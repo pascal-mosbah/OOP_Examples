@@ -36,15 +36,14 @@ struct Circle : Shape_cpp
 
 struct Square_as_shape : Shape_cpp
 {
-    float lenght_;
+    float length_;
     float get_aera();
     void print_data();
-    Square_as_shape(const float &lenght);
+    Square_as_shape(const float &length);
 };
 
 struct Square_as_rectangle : Rectangle
 {
-    float lenght_;
     void print_data();
-    Square_as_rectangle(const float &lenght);
+    Square_as_rectangle(const float &length);
 };

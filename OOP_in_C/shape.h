@@ -44,8 +44,8 @@ Shape *create_rectangle(float length, float width);
 Shape *create_triangle(float length_side1, float length_side2, float length_side3);
 Shape *create_circle(float radius);
 
-Shape *create_Square_as_Shape(float length);
-Shape *create_Square_as_Rectangle(float length);
+Shape *create_square_as_shape(float length);
+Shape *create_square_as_rectangle(float length);
 
 
 void delete_shape(Shape **shape);
