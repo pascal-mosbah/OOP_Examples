@@ -29,8 +29,7 @@ void my_allocation_using_C(int *&ptr, const size_t &new_size)
         ptr = static_cast<int *>(realloc(ptr, new_size * sizeof(int)));
         if (!ptr)
         {
-            cout << "Bad allocation using malloc" << endl;
-            exit(EXIT_FAILURE);
+            throw "Bad allocation using malloc";
         }
         if (old_ptr != ptr)
         {
@@ -47,17 +46,17 @@ void my_allocation_using_C(int *&ptr, const size_t &new_size)
 
 int main()
 {
-    const size_t increment = 1 << 16;
+    const size_t increment = 1 << 4;
     cout << increment << endl;
-    int *tab_float = nullptr;
-    int *tab_float_using_C = nullptr;
+    int *tab_int = nullptr;
+    int *tab_int_using_C = nullptr;
     size_t size = increment, initial_size = 0;
     auto time_start = chrono::high_resolution_clock::now();
     try
     {
         for (auto i = 0; i < 100; ++i)
         {
-            my_allocation(tab_float, initial_size, size);
+            my_allocation(tab_int, initial_size, size);
             initial_size = size;
             size += increment;
         }
@@ -74,17 +73,17 @@ int main()
     auto duration = chrono::duration_cast<chrono::microseconds>(time_end - time_start);
     std::cout << duration.count() << " microseconds(s) for new" << endl;
 
-    delete[] tab_float;
+    delete[] tab_int;
 
     size = 0;
     time_start = chrono::high_resolution_clock::now();
     for (auto i = 0; i < 100; ++i)
     {
-        my_allocation_using_C(tab_float_using_C, size);
+        my_allocation_using_C(tab_int_using_C, size);
         size += increment;
     }
     time_end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::microseconds>(time_end - time_start);
     std::cout << duration.count() << " microseconds(s) for realloc" << endl;
-    free(tab_float_using_C);
+    free(tab_int_using_C);
 }
