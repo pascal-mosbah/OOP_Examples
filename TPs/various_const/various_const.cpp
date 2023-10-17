@@ -15,8 +15,8 @@ int main() {
   for (int iter_total = 0; iter_total < 100000; ++iter_total) {
     total = 0;
     for (int iter = 0; iter < 1000; ++iter) {
-   // const long long unsigned n = 60;
-       long long unsigned n = 60;
+    const long long unsigned n = 60;
+//       long long unsigned n = 60;
       total += factorial(n);
     }
   }
