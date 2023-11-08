@@ -14,18 +14,19 @@ public:
         x = px;
         cout << "2";
     }
+
     A(const A &pa)
     {
         x = pa.x;
         cout << "3";
     }
 
-/*
+
     A operator=(const A& other){
         cout << "9";
         return A(other);
     }
-*/
+
 protected:
     int x;
 };

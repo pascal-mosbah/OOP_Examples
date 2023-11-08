@@ -1,4 +1,3 @@
-#pragma once
 class Shape
 {
 private:
@@ -22,7 +21,7 @@ private:
 public:
     // constructor
 
-//    Circle() : Shape(1) {}
+  //  Circle() : Shape(1) {}
 
     float get_radius();
     void set_radius(const float &);
