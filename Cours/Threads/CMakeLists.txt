@@ -5,11 +5,16 @@ project(Thread)
 set (CMAKE_CXX_STANDARD 17)
 if (MSVC)
     add_compile_options(/W4 /WX)
+    SET(INTEL "C:/Program Files (x86)/Intel/oneAPI")
 else()
     add_compile_options(-Wall)
     find_package(TBB REQUIRED) 
     link_libraries(TBB::tbb)
+    SET(INTEL "/opt/intel/oneapi")
 endif()
+
+SET(INTEL_COMPILER_LIB "${INTEL}/compiler/latest/windows/compiler/lib/intel64")
+SET(MKL_DIR "${INTEL}/mkl/latest/lib/cmake/mkl")
 
 find_package(MKL CONFIG REQUIRED)
 
