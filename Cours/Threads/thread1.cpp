@@ -38,7 +38,7 @@ void dot_product(const Iter v1_begin, const Iter v1_end, const Iter v2_begin,
 
 int main()
 {
-  constexpr size_t nb_elems = 500000000;
+  constexpr size_t nb_elems = 50000000;
   constexpr size_t nb_iter = 10;
 
   typedef double T;
