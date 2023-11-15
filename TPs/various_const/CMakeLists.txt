@@ -8,7 +8,7 @@ set(SRCS
 	"various_const.cpp" 
 	)
 add_executable (various_const ${SRCS})
-add_executable (various_const1 "various_const1.cpp")
+#add_executable (various_const1 "various_const1.cpp")
 
 if (MSVC)
     add_compile_options(/W4 /WX)
