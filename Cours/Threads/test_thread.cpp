@@ -2,18 +2,18 @@
 #include <thread>
 #include <chrono>
 
-int main() {
-
-	using namespace std::chrono_literals; 
-	std::cout << '\n';
+using namespace std::chrono_literals;
+int main()
+{
 	std::cout << std::boolalpha;
 	std::thread thr(
-			[]{ 
+		[]
+		{ 
 			std::this_thread::sleep_for(1s);
-			std::cout<<"End std::thread "<<std::endl;});
+			std::cout<<"End std::thread "<<std::endl; });
 
 	std::this_thread::sleep_for(2s);
 	std::cout << "is thr.joinable() ?: " << thr.joinable() << std::endl;
-	thr.join();
+	//thr.join();
 	std::cout << "is thr.joinable() ?: " << thr.joinable() << std::endl;
 }

@@ -6,23 +6,23 @@
 #include <numeric>
 #include <vector>
 #include <cassert>
+#include <array>
 
 #include <omp.h>
 
-#include "mkl.h"
+//#include "mkl.h"
 
-// #include "dot_product.hpp"
 
 using namespace std;
 
-double dot_product(const vector<double> &v1, const vector<double> &v2)
+/* double dot_product(const vector<double> &v1, const vector<double> &v2)
 {
   size_t n = v1.size();
   assert(n == v2.size());
   int one = 1;
   return cblas_ddot(n, &v1.front(), one, &v2.front(), one);
 }
-
+ */
 template <typename Iter>
 void dot_product(const Iter v1_begin, const Iter v1_end, const Iter v2_begin,
                  typename Iter::value_type &result)
@@ -146,26 +146,26 @@ int main()
     T result4 = static_cast<T>(0);
     size_t range = nb_elems / nb_threads;
     size_t lower_bound = 0, upper_bound = 0;
-    for (size_t i = 0; i < nb_threads; ++i)
+    for (size_t j = 0; j < nb_threads; ++j)
     {
       results[i] = 0;
       upper_bound = lower_bound + range;
-      if (i == nb_threads - 1)
+      if (j == nb_threads - 1)
       {
         upper_bound = nb_elems;
       }
       threads[i] = thread(dot_product<vector<T>::iterator>,
                           va1.begin() + lower_bound, va1.begin() + upper_bound,
-                          va2.begin() + lower_bound, ref(results[i]));
+                          va2.begin() + lower_bound, ref(results[j]));
       lower_bound += range;
     }
-    for (size_t i = 0; i < nb_threads; ++i)
+    for (size_t j = 0; j < nb_threads; ++j)
     {
-      threads[i].join();
+      threads[j].join();
     }
-    for (size_t i = 0; i < nb_threads; ++i)
+    for (size_t j = 0; j < nb_threads; ++j)
     {
-      result4 += results[i];
+      result4 += results[j];
     }
     result4_global += result4;
   }
@@ -190,9 +190,13 @@ int main()
 
 #pragma omp parallel for default(none) \
     shared(va1, va2) reduction(+ : result5)
-    for (size_t i = 0; i < va1.size(); i++)
+#ifdef _MSC_VER 
+    for (int j = 0; j < va1.size(); j++)
+#else
+    for (size_t j = 0; j < va1.size(); j++)
+#endif
     {
-      result5 += va1[i] * va2[i];
+      result5 += va1[j] * va2[j];
     }
     result5_global += result5;
   }
@@ -210,7 +214,7 @@ int main()
   cout << endl;
 /***************************************************************************************/  
 
-  cout << "Number of threads max (MKL) = " << mkl_get_max_threads() << endl;
+ /*  cout << "Number of threads max (MKL) = " << mkl_get_max_threads() << endl;
   start = chrono::high_resolution_clock::now();
 
   T result6_global = static_cast<T>(0);
@@ -226,43 +230,9 @@ int main()
        << flush;
   cout << " Result (blas): " << std::setprecision(15) << result6_global << endl
        << flush;
-  cout << endl;
+  cout << endl; */
 /***************************************************************************************/  
 
-  // mkl_set_num_threads_local(8);
-  // cout << "Number of threads max (MKL) = " << mkl_get_max_threads() << endl;
-  // start = chrono::high_resolution_clock::now();
-
-  // T result7_global = static_cast<T>(0);
-  // for (size_t i = 0; i < nb_iter; ++i)
-  // {
-
-  //   T result7 = dot_product(va1, va2);
-
-  //   result7_global += result7;
-  // }
-  // cout << "Time taken by function blas: "
-  //      << chrono::duration_cast<chrono::microseconds>(chrono::high_resolution_clock::now() - start).count() << " microseconds" << endl
-  //      << flush;
-  // if (result6_global != result2_global)
-  // {
-  //   cout << "error result6_global or result2_global" << endl;
-  // }
-  // if (result6_global != result3_global)
-  // {
-  //   cout << "error result6_global or result1_global" << endl;
-  // }
-  // if (result1_global != result4_global)
-  // {
-  //   cout << "error result1_global or result4_global" << endl;
-  // }
-  // if (result1_global != result5_global)
-  // {
-  //   cout << "error result1_global or result5_global" << endl;
-  // }
-  // if (result1_global != result6_global)
-  // {
-  //   cout << "error result1_global or result6_global" << endl;
-  // }
+  
   return EXIT_SUCCESS;
 }
