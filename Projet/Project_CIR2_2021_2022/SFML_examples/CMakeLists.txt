@@ -6,9 +6,9 @@ set (CMAKE_CXX_STANDARD 20)
 
 if(MSVC)
     set(SFML_DIR "C:/Program Files/SFML/lib/cmake/SFML")
-#    set(SFML_STATIC_LIBRARIES TRUE)
-#    set(CMAKE_CXX_FLAGS_RELEASE "/MT")
-#    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+    set(SFML_STATIC_LIBRARIES TRUE)
+    set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
 endif()
 
 find_package(SFML 2.6.1 COMPONENTS window system graphics REQUIRED)

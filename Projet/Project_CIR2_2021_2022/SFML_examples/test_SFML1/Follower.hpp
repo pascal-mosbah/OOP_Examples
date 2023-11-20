@@ -7,7 +7,8 @@
 
 
 #ifdef _MSC_VER 
-#define _PATH_IMG_ "../../../img/"
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#define _PATH_IMG_ "C:/Program Files/SFML/img/"
 #else
 #define _PATH_IMG_ "../img/"
 #endif
