@@ -17,40 +17,45 @@ int my_count::count_ = 0;
 template <typename _T>
 struct my_struct : my_count
 {
-    int key_;
     size_t size_;
-    std::unique_ptr<_T> data_;
+    std::unique_ptr<_T[]> data_;
+    int count_;
+    int key_;
 
-    my_struct() : data_(std::make_unique<_T>(size_)), size_(100), count_(my_count::count_), key_(rand())
+
+    my_struct() : size_(1000), data_(std::make_unique<_T[]>(size_)), count_(my_count::count_), key_(rand())
     {
+        // std::cout << "Default constructeur  " << count_ << " size " << size_ << std::endl;
+    }
+
+    my_struct(const size_t &size) : size_(size), data_(std::make_unique<_T[]>(size_)), count_(my_count::count_), key_(rand())
+    {
+        // std::cout << "Constructeur " << count_ << " size " << size_ << std::endl;
     }
 
     const my_struct &operator=(const my_struct &other)
     {
-        data_ = std::make_unique<_T>(other.size_);
+        data_ = std::make_unique<_T[]>(other.size_);
         size_ = other.size_;
         key_ = other.key_;
-        copy(other.data_.get(), other.data_.get() + size_, data_.get());
+        count_ = other.count_;
+        std::copy(other.data_.get(), other.data_.get() + size_, data_.get());
         return *this;
     }
-    my_struct(const my_struct &other) : data_(std::make_unique<_T>(size_)), size_(other.size_), count_(my_count::count_)
+    my_struct(const my_struct &other) : size_(other.size_), data_(std::make_unique<_T[]>(other.size_)), count_(my_count::count_), key_(other.key_)
     {
-        std::cout << "Copy " << count_ << " " << size_ << std::endl;
-        data_ = new int[other.size_];
-        size_ = other.size_;
-        copy(other.data_, other.data_ + size_, data_);
+        // std::cout << "Copy " << count_ << " size " << size_ << std::endl;
+        std::copy(other.data_.get(), other.data_.get() + size_, data_.get());
     }
-    my_struct(my_struct &&other) : data_(other.data_), size_(other.size_), count_(my_count::count_)
+    my_struct(my_struct &&other) : size_(other.size_), data_(std::move(other.data_)), count_(my_count::count_), key_(other.key_)
     {
-        std::cout << "Move " << count_ << " " << size_ << std::endl;
-        data_ = other.data_;
-        size_ = other.size_;
+        // std::cout << "Move " << count_ << " size " << size_ << std::endl;
         other.data_ = nullptr;
         other.size_ = 0;
     }
 };
 
-template<typename _T>
+template <typename _T>
 void my_swap_copy(my_struct<_T> &first, my_struct<_T> &second)
 {
     auto tmp = first;
@@ -58,7 +63,7 @@ void my_swap_copy(my_struct<_T> &first, my_struct<_T> &second)
     second = tmp;
 }
 
-template<typename _T>
+template <typename _T>
 void my_swap_move(my_struct<_T> &first, my_struct<_T> &second)
 {
     auto tmp = std::move(first);
@@ -67,7 +72,7 @@ void my_swap_move(my_struct<_T> &first, my_struct<_T> &second)
 }
 
 template <typename _T, typename swap_type>
-void my_sort(my_struct<_T> *tab, const size_t &size, swap_type my_swap)
+void my_sort(std::unique_ptr<_T> &tab, const size_t &size, swap_type my_swap)
 {
     for (size_t i = 0; i < size; i++)
     {
@@ -81,21 +86,34 @@ void my_sort(my_struct<_T> *tab, const size_t &size, swap_type my_swap)
     }
 }
 
+/* int main()
+{
+    my_struct<int> s1;
+    my_struct<int> s2(10);
+    auto s3 = s1;
+    auto s4 = std::move(s2);
+    auto s5 = std::make_unique<my_struct<int>>(20);
+    auto s6 = std::move(s5); // s6 = s5
+
+    return EXIT_SUCCESS;
+} */
+
 int main()
 {
     srand((unsigned)time(NULL));
-    int size = 20;
-    auto s = new my_struct<int>[size];
-    auto sp = new my_struct<int>[size];
-    std::copy(s, s + size, sp);
+    const int size = 10000;
+
+    auto s = std::make_unique<my_struct<int>[]>(size);
+    auto sp = std::make_unique<my_struct<int>[]>(size);
+    std::copy(s.get(), s.get() + size, sp.get());
 
     auto start = std::chrono::high_resolution_clock::now();
-    my_sort(s, size, my_swap_copy);
+    my_sort(s, size, my_swap_copy<int>);
     std::chrono::duration<double> elapsed =
         std::chrono::high_resolution_clock::now() - start;
-    std::std::cout << "Temps : " << elapsed.count() << " s\n";
+    std::cout << "Temps : " << elapsed.count() << " s\n";
     start = std::chrono::high_resolution_clock::now();
-    my_sort(sp, size, my_swap_move);
+    my_sort(sp, size, my_swap_move<int>);
     elapsed = std::chrono::high_resolution_clock::now() - start;
-    std::stcout << "Temps : " << elapsed.count() << " s\n";
+    std::cout << "Temps : " << elapsed.count() << " s\n";
 }
