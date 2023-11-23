@@ -1,4 +1,6 @@
-cmake_minimum_required (VERSION 3.6)
+cmake_minimum_required (VERSION 3.15)
+
+cmake_policy(SET CMP0091 NEW)
 
 project(SFML)
 
@@ -7,8 +9,13 @@ set (CMAKE_CXX_STANDARD 20)
 if(MSVC)
     set(SFML_DIR "C:/Program Files/SFML/lib/cmake/SFML")
     set(SFML_STATIC_LIBRARIES TRUE)
-    set(CMAKE_CXX_FLAGS_RELEASE "/MT")
-    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+    add_compile_options(
+    $<$<CONFIG:>:/MT> #---------|
+    $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
+    $<$<CONFIG:Release>:/MT> #--|
+    )
+#    set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+#    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
 endif()
 
 find_package(SFML 2.6.1 COMPONENTS window system graphics REQUIRED)
