@@ -14,8 +14,6 @@ if(MSVC)
     $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
     $<$<CONFIG:Release>:/MT> #--|
     )
-#    set(CMAKE_CXX_FLAGS_RELEASE "/MT")
-#    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
 endif()
 
 find_package(SFML 2.6.1 COMPONENTS window system graphics REQUIRED)
