@@ -7,6 +7,7 @@
 #include <vector>
 #include <cassert>
 #include <array>
+#include <thread>
 
 #include <omp.h>
 
@@ -139,7 +140,7 @@ int main()
 
   start = chrono::high_resolution_clock::now();
   T result4_global = static_cast<T>(0);
-  array<thread, nb_threads> threads;
+  array<std::thread, nb_threads> threads;
   array<T, nb_threads> results;
   for (size_t i = 0; i < nb_iter; ++i)
   {

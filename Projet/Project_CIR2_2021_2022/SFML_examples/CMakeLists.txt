@@ -16,7 +16,7 @@ if(MSVC)
     )
 endif()
 
-find_package(SFML 2.6.1 COMPONENTS window system graphics REQUIRED)
+find_package(SFML COMPONENTS window system graphics REQUIRED)
 link_libraries(sfml-graphics sfml-window)
 
 add_subdirectory(test_SFML)
