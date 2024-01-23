@@ -9,7 +9,7 @@ class Rectangle:
         return self._length * self._width
     
     def print_data(self):
-        print("Shape type : Rectangle with sides : %f %f\n" % (self._length , self._width))
+        print("Shape type : Rectangle with sides : %f %f" % (self._length , self._width))
 
 class Triangle:
     def __init__(self, length_side1, length_side2, length_side3):
@@ -25,7 +25,7 @@ class Triangle:
         return sqrt(d * (d - a) * (d - b) * (d - c))
     
     def print_data(self):
-        print("Shape type : Triangle with sides : %f %f %f\n" % (self._length_side1, self._length_side2, self._length_side3))
+        print("Shape type : Triangle with sides : %f %f %f" % (self._length_side1, self._length_side2, self._length_side3))
 
 class Circle:
     def __init__(self, radius):
@@ -35,7 +35,7 @@ class Circle:
         return pi * self._radius * self._radius
     
     def print_data(self):
-        print("Shape type : Circle with radius : %f\n" % self._radius)
+        print("Shape type : Circle with radius : %f" % self._radius)
 
 
 list_of_shapes = []
@@ -44,5 +44,5 @@ list_of_shapes.append(Triangle(5, 12, 15))
 list_of_shapes.append(Circle(20))
 
 for shape in list_of_shapes:
-    print("Aera : %f \n" % (shape.get_aera()))
+    print("Aera : %f " % (shape.get_aera()))
     shape.print_data()
